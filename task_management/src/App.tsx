@@ -31,33 +31,42 @@ const initialTasks: Task[] = [
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [openDialog, setOpenDialog] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   const addTask = (task: Omit<Task, 'id'>) => {
     setTasks([...tasks, { ...task, id: Date.now() }]);
-    setOpenDialog(false); // Închide dialogul după adăugarea task-ului
+    setOpenDialog(false); 
   };
 
   const editTask = (id: number, updatedTask: Partial<Task>) => {
     setTasks(tasks.map(task => task.id === id ? { ...task, ...updatedTask } : task));
+    setOpenDialog(false); 
   };
 
   const deleteTask = (id: number) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
 
+  const handleEditClick = (task: Task) => {
+    setSelectedTask(task); 
+    setOpenDialog(true); 
+  };
+
   return (
     <Container>
       <Typography variant="h3" gutterBottom>Task Management</Typography>
-      <Button 
-      style={{marginBottom: '35px'}} 
-      variant="contained" onClick={() => setOpenDialog(true)}>
+      <Button  style={{marginBottom: '35px'}}  variant="contained" onClick={() => setOpenDialog(true)}>
         Add Task
       </Button>
-      <TaskList tasks={tasks} onEdit={editTask} onDelete={deleteTask} />
+      <TaskList tasks={tasks} onEdit={handleEditClick} onDelete={deleteTask} />
       <TaskForm 
         open={openDialog} 
-        onClose={() => setOpenDialog(false)} 
-        onSubmit={ addTask} 
+        onClose={() => {
+          setOpenDialog(false);
+          setSelectedTask(null); // Resetează task-ul selectat la închidere
+        }} 
+        onSubmit={selectedTask ? (task) => editTask(selectedTask.id, task) : addTask} 
+        initialTask={selectedTask} 
       />
     </Container>
   );

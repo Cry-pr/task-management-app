@@ -8,7 +8,7 @@ interface TaskFormProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (task: Omit<Task, 'id'>) => void;
-  initialTask?: Task;
+  initialTask?: Task; // Adăugăm proprietatea `initialTask`
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, onSubmit, initialTask }) => {
@@ -17,7 +17,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, onSubmit, initialTas
   const [dueDate, setDueDate] = useState<Date | null>(null);
   const [status, setStatus] = useState<'To Do' | 'In Progress' | 'Completed'>('To Do');
 
-  // Efect pentru a preumple formularul cu datele din `initialTask`
+
   useEffect(() => {
     if (initialTask) {
       setTitle(initialTask.title);
@@ -25,7 +25,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, onSubmit, initialTas
       setDueDate(initialTask.dueDate);
       setStatus(initialTask.status);
     } else {
-      // Resetează formularul dacă nu există `initialTask`
+
       setTitle('');
       setDescription('');
       setDueDate(null);
@@ -36,12 +36,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, onSubmit, initialTas
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit({ title, description, dueDate, status });
-    if (!initialTask) {
-      setTitle('');
-      setDescription('');
-      setDueDate(null);
-      setStatus('To Do');
-    }
+    onClose(); 
   };
 
   return (
@@ -62,8 +57,8 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, onSubmit, initialTas
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             fullWidth
-            multiline // Activează textarea
-            rows={4} // Numărul de rânduri vizibile
+            multiline
+            rows={4}
             sx={{ mb: 2 }}
           />
           <LocalizationProvider dateAdapter={AdapterDateFns}>

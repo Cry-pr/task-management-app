@@ -13,8 +13,8 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onEdit, onDelete }) => {
   const [open, setOpen] = useState(false);
 
   const handleEdit = (updatedTask: Partial<Task>) => {
-    onEdit(task.id, updatedTask); // Actualizează task-ul
-    setOpen(false); // Închide dialogul după actualizare
+    onEdit(task.id, updatedTask); 
+    setOpen(false); 
   };
 
   return (

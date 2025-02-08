@@ -6,7 +6,7 @@ import SortTasks from './SortTasks';
 
 interface TaskListProps {
   tasks: Task[];
-  onEdit: (id: number, task: Partial<Task>) => void;
+  onEdit: (task: Task) => void; 
   onDelete: (id: number) => void;
 }
 
@@ -14,12 +14,12 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onEdit, onDelete }) => {
   const [statusFilter, setStatusFilter] = React.useState<string>('All');
   const [sortOrder, setSortOrder] = React.useState<string>('asc');
 
-  // Filtrare sarcini după status
+ 
   const filteredTasks = tasks.filter(task => 
     statusFilter === 'All' ? true : task.status === statusFilter
   );
 
-  // Sortare sarcini după dată
+  
   const sortedTasks = filteredTasks.sort((a, b) => {
     if (sortOrder === 'asc') {
       return new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime();
@@ -51,13 +51,13 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onEdit, onDelete }) => {
                   <Typography variant="h6" gutterBottom>
                     {task.title}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" gutterBottom 
+                  <Typography variant="body2" color="textSecondary" gutterBottom
                   sx={{
-                         display: '-webkit-box',
-                         WebkitBoxOrient: 'vertical',
-                         WebkitLineClamp: 2, // Setează numărul maxim de linii
-                          overflow: 'hidden',
-                    }}>
+                    display: '-webkit-box',
+                    WebkitBoxOrient: 'vertical',
+                    WebkitLineClamp: 3, 
+                     overflow: 'hidden',
+                      }}>
                     {task.description}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
@@ -69,7 +69,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onEdit, onDelete }) => {
                 </CardContent>
                 <CardContent>
                   <Button 
-                    onClick={() => {onEdit(task.id, task)}} 
+                    onClick={() => onEdit(task)} 
                     variant="contained" 
                     sx={{ mr: 1 }}
                   >
