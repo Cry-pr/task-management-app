@@ -8,7 +8,7 @@ interface TaskFormProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (task: Omit<Task, 'id'>) => void;
-  initialTask?: Task; // Adăugăm proprietatea `initialTask`
+  initialTask?: Task | null; 
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, onSubmit, initialTask }) => {
@@ -66,6 +66,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, onSubmit, initialTas
               label="Due Date"
               value={dueDate}
               onChange={(newValue) => setDueDate(newValue)}
+              sx={{ mb: 2 }}
             />
           </LocalizationProvider>
           <Select

@@ -30,7 +30,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onEdit, onDelete }) => {
 
   return (
     <div>
-        <div style={{display: 'flex', gap: '10px'}}>
+        <div style={{ display: 'flex', gap: '10px'}}>
       <FilterTasks 
         statusFilter={statusFilter} 
         onStatusFilterChange={setStatusFilter} 

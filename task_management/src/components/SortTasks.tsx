@@ -18,7 +18,7 @@ const SortTasks: React.FC<SortTasksProps> = ({ sortOrder, onSortOrderChange }) =
         >
           <MenuItem value="asc">Ascending</MenuItem>
           <MenuItem value="desc">Descending</MenuItem>
-        </Select>
+        </Select>   
       </FormControl>
     </Box>
   );

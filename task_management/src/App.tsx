@@ -54,7 +54,7 @@ const App: React.FC = () => {
 
   return (
     <Container>
-      <Typography variant="h3" gutterBottom>Task Management</Typography>
+      <Typography sx={{color:'black'}} variant="h3" gutterBottom>Task Management</Typography>
       <Button  style={{marginBottom: '35px'}}  variant="contained" onClick={() => setOpenDialog(true)}>
         Add Task
       </Button>
